@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Ranking - Rivals Arena</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body data-p="ranking">
+        <header class="nav"></header>
+        <main>
+            <div class="banner" style="background-image:url(img/banner-ranking.jpg)">
+                <h1>Rankings totais</h1>
+            </div>
+            <div class="rank pad pattern">
+                <div class="tabela">
+                    <h3>BERMUDA LIFESTILE</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>NICKNAME</th>
+                                <th>PONTUAÇÃO</th>
+                                <th>V/D</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rank"></tbody>
+                    </table>
+                </div>
+                <aside class="info">
+                    <section>
+                        <h3>O que são os rankings totais</h3>
+                        <p>Rankings totais é uma tabela de rankings que exibem a performace dos times que participaram de torneios oficiais da Rivals arena ou de torneios da comunidade</p>
+                    </section>
+                    <section>
+                        <h3>Campeonatos</h3>
+                        <label>
+                            <input type="checkbox" checked>Oficiais
+                        </label>
+                        <label>
+                            <input type="checkbox">Seus campeonatos
+                        </label>
+                    </section>
+                </aside>
+            </div>
+        </main>
+        <footer class="foot"></footer>
+        <script type="module" src="script.js"></script>
+        <script type="module" src="auth.js"></script>
+    </body>
+</html>

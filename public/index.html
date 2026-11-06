@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rivals Arena - HUB Competitivo</title>
+  
+  <!-- Importação da fonte Inter e fontes gamer auxiliares -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;1,700&family=Inter:wght@400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --bg-dark: #0d0d0f;
+      --bg-card: #16161a;
+      --accent-yellow: #ffc700;
+      --accent-orange: #ff5500;
+      --text-white: #ffffff;
+      --text-gray: #a0a0a0;
+      
+      /* Mapeamento de Fontes Conforme Imagem de Tipografia */
+      --font-cabeçalho: 'Orbitron', 'Babapro', sans-serif; /* Cabeçalhos Grandes */
+      --font-subtitulo: 'Chakra Petch', 'Hemi Head', sans-serif; /* Subtítulos */
+      --font-corpo: 'Inter', sans-serif; /* Textos Pequenos */
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      font-family: var(--font-corpo);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* --------------------------------------------------
+                          CABEÇALHO
+       -------------------------------------------------- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 8%;
+      background-color: rgba(13, 13, 15, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid #222;
+    }
+
+    .logo {
+      font-family: var(--font-cabeçalho);
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      line-height: 1.1;
+      color: var(--text-white);
+      text-transform: uppercase;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+
+    nav a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-family: var(--font-subtitulo);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--text-white);
+    }
+
+    .btn-login {
+      background-color: var(--accent-yellow);
+      color: #000;
+      padding: 8px 24px;
+      border: none;
+      font-family: var(--font-subtitulo);
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .btn-login:hover {
+      background-color: #e6b300;
+      transform: translateY(-2px);
+    }
+
+    /* --------------------------------------------------
+       SEÇÃO HERO / BANNER PRINCIPAL
+       -------------------------------------------------- */
+    .hero {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 60px 20px;
+      background: radial-gradient(circle at center, #2a080c 0%, var(--bg-dark) 70%);
+      background-image: 
+        linear-gradient(to bottom, rgba(13, 13, 15, 0.4), var(--bg-dark)),
+        repeating-linear-gradient(45deg, rgba(255, 0, 0, 0.05) 0, rgba(255, 0, 0, 0.05) 1px, transparent 0, transparent 50px);
+    }
+
+    .hero h1 {
+      font-family: var(--font-cabeçalho);
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+      line-height: 1.1;
+    }
+
+    .hero p {
+      max-width: 600px;
+      font-size: 0.95rem;
+      color: var(--text-gray);
+      margin-bottom: 30px;
+      text-transform: uppercase;
+    }
+
+    .btn-cta {
+      background-color: var(--accent-yellow);
+      color: #000;
+      padding: 12px 36px;
+      border: none;
+      font-family: var(--font-subtitulo);
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .btn-cta:hover {
+      background-color: #e6b300;
+      transform: scale(1.05);
+    }
+
+    /* --------------------------------------------------
+       DESTAQUES E NOTÍCIAS
+       -------------------------------------------------- */
+    .highlights {
+      padding: 60px 8%;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .main-card {
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #222;
+    }
+
+    .main-card img {
+      width: 100%;
+      height: 320px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .main-card-info {
+      padding: 20px;
+    }
+
+    .main-card-info h3 {
+      font-family: var(--font-subtitulo);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .tag-news {
+      font-size: 0.75rem;
+      color: #e6b300;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+
+    .news-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .news-item {
+      display: flex;
+      background-color: var(--bg-card);
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #222;
+      height: 120px;
+    }
+
+    .news-item-text {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .news-item-text p {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .news-item img {
+      width: 170px;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .btn-ver-mais {
+      align-self: flex-end;
+      background-color: var(--accent-yellow);
+      color: #000;
+      border: none;
+      padding: 8px 20px;
+      font-family: var(--font-subtitulo);
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    /* --------------------------------------------------
+       JOGOS COMPETITIVOS DISPONÍVEIS
+       -------------------------------------------------- */
+    .games-section {
+      padding: 60px 8%;
+    }
+
+    .section-title {
+      font-family: var(--font-cabeçalho);
+      font-size: 2.2rem;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+      line-height: 1.2;
+    }
+
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .game-card {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      border: 1px solid #333;
+      transition: transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+
+    .game-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-yellow);
+    }
+
+    .game-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* --------------------------------------------------
+       QUEM SOMOS
+       -------------------------------------------------- */
+    .about-section {
+      padding: 60px 8%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about-content {
+      background-color: var(--bg-card);
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid #222;
+    }
+
+    .about-content h2 {
+      font-family: var(--font-cabeçalho);
+      font-size: 2rem;
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+
+    .about-content p {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      margin-bottom: 30px;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 100%;
+      max-height: 380px;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .about-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* --------------------------------------------------
+       RODAPÉ
+       -------------------------------------------------- */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 8%;
+      background-color: #08080a;
+      border-top: 1px solid #222;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-nav a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-family: var(--font-subtitulo);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+    }
+
+    .btn-top {
+      background-color: var(--accent-yellow);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 900px) {
+      .highlights, .about-section {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      header nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CABEÇALHO -->
+  <header>
+    <div class="logo">RIVALS<br>ARENA</div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active">HUB</a></li>
+        <li><a href="tv.html">TV</a></li>
+        <li><a href="ranking.html">RANKING</a></li>
+        <li><a href="campeonatos.html">CAMPEONATO</a></li>
+      </ul>
+    </nav>
+    <button class="btn-login"><a href="login.html">LOGIN</a></button>
+  </header>
+
+  <!-- BANNER PRINCIPAL (HERO) -->
+  <section class="hero">
+    <h1>O MUNDIAL<br>ESTÁ DE VOLTA</h1>
+    <p>WORLDS 26 é o maior campeonato de League of Legends. Abrirá em breve, não perca sua chance.</p>
+    <button class="btn-cta">Saiba mais</button>
+  </section>
+
+  <!-- DESTAQUES E NOTÍCIAS -->
+  <section class="highlights">
+    <div class="main-card">
+      <img src="img/NOTICIA 3.png" alt="Valorant Champions Shangai">
+      <div class="main-card-info">
+        <h3>Valorant Champions Shangai se aproxima</h3>
+        <span class="tag-news"><a href="tv.html">✕ NOTÍCIAS</a></span>
+      </div>
+    </div>
+
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-item-text">
+          <p>Campeonato de e-sports com premiação de 2000 R$</p>
+          <span class="tag-news"><a href="tv.html">✕ NOTÍCIAS</a></span>
+        </div>
+        <img src="img/news1.png" alt="Notícia 1">
+      </div>
+
+      <div class="news-item">
+        <div class="news-item-text">
+          <p>Campeonato Regional de Pokémon em comemoração a 30 anos de franquia</p>
+          <span class="tag-news"><a href="tv.html">✕ NOTÍCIAS</a></span>
+        </div>
+        <img src="img/news 2.png" alt="Notícia 2">
+      </div>
+
+      <button class="btn-ver-mais"><a href="tv.html">VER MAIS</a></button>
+    </div>
+  </section>
+
+  <!-- JOGOS COMPETITIVOS DISPONÍVEIS -->
+  <section class="games-section">
+    <h2 class="section-title">JOGOS<br>COMPETITIVOS<br>DISPONÍVEIS</h2>
+    
+    <div class="games-grid">
+      <!-- CS2 -->
+      <div class="game-card">
+        <img src="img/Rectangle 215.png" alt="Counter Strike 2">
+      </div>
+      <!-- Street Fighter 6 -->
+      <div class="game-card">
+        <img src="img/image 6.png" alt="Street Fighter 6">
+      </div>
+      <!-- Brawl Stars -->
+      <div class="game-card">
+        <img src="img/image 4.png" alt="Brawl Stars">
+      </div>
+      <!-- Tekken 8 -->
+      <div class="game-card">
+        <img src="img/image 7.png" alt="Tekken 8">
+      </div>
+      <!-- Fortnite -->
+      <div class="game-card">
+        <img src="img/image 9.png" alt="Fortnite">
+      </div>
+      <!-- Pokémon Champions -->
+      <div class="game-card">
+        <img src="img/image 10.png" alt="Pokémon Champions">
+      </div>
+      <!-- Outcome Memories -->
+      <div class="game-card">
+        <img src="img/image 12.png" alt="Outcome Memories">
+      </div>
+    </div>
+  </section>
+
+  <!-- QUEM SOMOS -->
+  <section class="about-section">
+    <div class="about-content">
+      <h2>QUEM NÓS SOMOS</h2>
+      <p>A Rivals Arena surgiu do desejo de 4 colegas pelo cenário competitivo de jogos, tal amor à competitividade incentivou essa equipe a formar esse site como um hub para partidas competitivas e torneios de esportes eletrônicos.</p>
+      <button class="btn-cta"><a href="criar.html">ORGANIZE UM CAMPEONATO JÁ</a></button>
+    </div>
+    <div class="about-image">
+      <img src="img/setup-gamer.png" alt="Jogador Competitivo">
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <div class="logo">RIVALS<br>ARENA</div>
+    <div class="footer-nav">
+      <a href="ranking.html">RANKING</a>
+      <a href="campeonatos.html">EQUIPES</a>
+      <a href="#">NOS CONTATE</a>
+    </div>
+    <button class="btn-top" onclick="scrollToTop()">▲</button>
+  </footer>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    function handleLogin() {
+      alert("Redirecionando para a tela de Login...");
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
