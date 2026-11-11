@@ -11,14 +11,16 @@
         <main class="login pattern">
             <form id="form-login">
                 <h1>LOGIN</h1>
-                <label>E-mail<input type="email" id="login-email" autocomplete="email" placeholder="seu@email.com" required></label>
-                <label>Senha<input type="password" id="login-senha" autocomplete="current-password" placeholder="*************" required></label>
+                <label>E-mail<input type="email" id="email" autocomplete="email" placeholder="seu@email.com" required></label>
+                <label>Senha<input type="password" id="senha" autocomplete="current-password" placeholder="*************" required></label>
+                <p id="mensagem" aria-live="polite"></p>
                 <button type="submit" class="btn">Login</button>
-                <a href="#">CRIAR CONTA</a>
+                <a href="criar-conta.html">CRIAR CONTA</a>
             </form>
         </main>
         <footer class="foot"></footer>
-        <script type="module" src="script.js"></script>
-        <script type="module" src="auth.js"></script>
+        <script src="js/script.js"></script>
+        <script src="js/comum.js"></script>
+        <script src="js/login.js"></script>
     </body>
 </html>

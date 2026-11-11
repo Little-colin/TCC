@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar conta - Rivals Arena</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* Ajustes só desta página. O visual base (.login, .nav, .foot, .btn) vem do style.css */
+    .login label:focus-within { outline: 2px solid var(--y); outline-offset: 2px; }
+    .login label:has(input[aria-invalid="true"]) { outline: 2px solid #ff6b6b; outline-offset: 2px; }
+    .login label small { font-size: 13px; margin-left: 6px; }
+
+    .login .aviso { margin: -6px 0 22px; font-size: 16px; text-align: left; }
+    .login .aviso:empty { display: none; }
+    .login .erro { color: #ff6b6b; }      /* mais claro p/ dar contraste no fundo #262626 */
+    .login .sucesso { color: #4ade80; }
+
+    .topo { border: 0; cursor: pointer; }
+
+    @media (max-width: 800px) {
+      .login { padding: 60px 16px; }
+      .login form { padding: 40px 20px 48px; }
+      .login h1 { margin-bottom: 40px; }
+      .login .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav"></header>
+
+  <main class="login">
+    <form id="form-cadastro">
+      <h1>Criar conta</h1>
+
+      <label>Nome de usuário <small>3 a 20 caracteres: letras, números e _</small>
+        <input type="text" name="nome" autocomplete="username" minlength="3" maxlength="20" pattern="[A-Za-z0-9_]{3,20}" required>
+      </label>
+
+      <label>Email
+        <input type="email" name="email" autocomplete="email" id="email" required>
+      </label>
+
+      <label>Senha <small>mínimo de 8 caracteres</small>
+        <input type="password" name="senha" autocomplete="new-password" id="senha" minlength="8" required>
+      </label>
+
+      <p id="aviso" class="aviso" aria-live="polite"></p>
+
+      <button class="btn botao" type="submit">Criar conta</button>
+      <a href="login.html">Já tem uma conta? Entrar</a>
+    </form>
+  </main>
+
+  <footer class="foot"></footer>
+
+  <script src="js/script.js"></script>
+  <script src="js/comum.js"></script>
+  <script src="js/cadastro.js"></script>
+
+</body>
+</html>
