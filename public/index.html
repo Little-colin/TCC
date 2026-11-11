@@ -389,19 +389,7 @@
 </head>
 <body>
 
-  <!-- CABEÇALHO -->
-  <header>
-    <div class="logo">RIVALS<br>ARENA</div>
-    <nav>
-      <ul>
-        <li><a href="#" class="active">HUB</a></li>
-        <li><a href="tv.html">TV</a></li>
-        <li><a href="ranking.html">RANKING</a></li>
-        <li><a href="campeonatos.html">CAMPEONATO</a></li>
-      </ul>
-    </nav>
-    <button class="btn-login"><a href="login.html">LOGIN</a></button>
-  </header>
+  <header class="nav"></header>
 
   <!-- BANNER PRINCIPAL (HERO) -->
   <section class="hero">
@@ -437,7 +425,7 @@
         <img src="img/news 2.png" alt="Notícia 2">
       </div>
 
-      <button class="btn-ver-mais"><a href="tv.html">VER MAIS</a></button>
+      <a href="tv.html"><button class="btn-ver-mais">VER MAIS</button></a>
     </div>
   </section>
 
@@ -482,33 +470,17 @@
     <div class="about-content">
       <h2>QUEM NÓS SOMOS</h2>
       <p>A Rivals Arena surgiu do desejo de 4 colegas pelo cenário competitivo de jogos, tal amor à competitividade incentivou essa equipe a formar esse site como um hub para partidas competitivas e torneios de esportes eletrônicos.</p>
-      <button class="btn-cta"><a href="criar.html">ORGANIZE UM CAMPEONATO JÁ</a></button>
+      <a href="login.html"><button class="btn-cta">ORGANIZE UM CAMPEONATO JÁ</button></a>
     </div>
     <div class="about-image">
       <img src="img/setup-gamer.png" alt="Jogador Competitivo">
     </div>
   </section>
 
-  <!-- RODAPÉ -->
-  <footer>
-    <div class="logo">RIVALS<br>ARENA</div>
-    <div class="footer-nav">
-      <a href="ranking.html">RANKING</a>
-      <a href="campeonatos.html">EQUIPES</a>
-      <a href="#">NOS CONTATE</a>
-    </div>
-    <button class="btn-top" onclick="scrollToTop()">▲</button>
-  </footer>
+  <footer class="foot">
+  
+  <script src="js/script.js"></script>
+  <script src="js/comum.js"></script>
 
-  <!-- JAVASCRIPT -->
-  <script>
-    function handleLogin() {
-      alert("Redirecionando para a tela de Login...");
-    }
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  </script>
 </body>
 </html>
