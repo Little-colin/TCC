@@ -1,11 +1,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const usuarioRepository = require('../repositories/usuarioRepository');
+const Usuario = require('../models/Usuario');
 async function login(req, res) {
     try {
         const { email, senha } = req.body;
 
-        const usuario = await usuarioRepository.buscarPorEmail(email);
+        const usuario = await Usuario.findOne({ where: { email } });
         if (!usuario) {
             return res.status(401).json({ mensagem: 'Email ou senha inválidos' });
         }

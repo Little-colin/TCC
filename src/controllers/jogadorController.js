@@ -1,8 +1,11 @@
-const jogadorRepository = require('../repositories/jogadorRepository');
+const Jogador = require('../models/jogador');
 
 async function listar(req, res) {
     try {
-        const jogadores = await jogadorRepository.listarDoCadastrador(req.usuario.id);
+        const jogadores = await Jogador.findAll({
+            where: { id_cadastrador: req.usuario.id },
+            order: [['createdAt', 'DESC']],
+        });
 
         res.json(jogadores);
     } catch (erro) {
@@ -20,7 +23,7 @@ async function cadastrar(req, res) {
             return res.status(400).json({ mensagem: 'Informe o nome do jogador' });
         }
 
-        const jogador = await jogadorRepository.criar({
+        const jogador = await Jogador.create({
             nome_jogador,
             id_cadastrador: req.usuario.id,
         });
@@ -36,16 +39,18 @@ async function cadastrar(req, res) {
 
 async function excluir(req, res) {
     try {
-        const jogador = await jogadorRepository.buscarDoCadastrador(
-            req.params.id,
-            req.usuario.id
-        );
+        const jogador = await Jogador.findOne({
+            where: {
+                id_jogador: req.params.id,
+                id_cadastrador: req.usuario.id,
+            },
+        });
 
         if (!jogador) {
             return res.status(404).json({ mensagem: 'Jogador não encontrado' });
         }
 
-        await jogadorRepository.excluir(jogador);
+        await jogador.destroy();
         res.status(204).end();
     } catch (erro) {
         res.status(500).json({
