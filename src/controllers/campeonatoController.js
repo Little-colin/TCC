@@ -1,8 +1,11 @@
-const campeonatoRepository = require('../repositories/campeonatoRepository');
+const Campeonato = require('../models/campeonato');
 
 async function listar(req, res) {
     try {
-        const campeonatos = await campeonatoRepository.listarDoOrganizador(req.usuario.id);
+        const campeonatos = await Campeonato.findAll({
+            where: { id_organizador: req.usuario.id },
+            order: [['createdAt', 'DESC']],
+        });
 
         res.json(campeonatos);
     } catch (erro) {
@@ -25,7 +28,7 @@ async function cadastrar(req, res) {
             formato,
         } = req.body;
 
-        const campeonato = await campeonatoRepository.criar({
+        const campeonato = await Campeonato.create({
             nome_campeonato,
             descricao,
             max_times,
@@ -47,16 +50,18 @@ async function cadastrar(req, res) {
 
 async function excluir(req, res) {
     try {
-        const campeonato = await campeonatoRepository.buscarDoOrganizador(
-            req.params.id,
-            req.usuario.id
-        );
+        const campeonato = await Campeonato.findOne({
+            where: {
+                id_campeonato: req.params.id,
+                id_organizador: req.usuario.id,
+            },
+        });
 
         if (!campeonato) {
             return res.status(404).json({ mensagem: 'Campeonato não encontrado' });
         }
 
-        await campeonatoRepository.excluir(campeonato);
+        await campeonato.destroy();
         res.status(204).end();
     } catch (erro) {
         res.status(500).json({

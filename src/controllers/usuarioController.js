@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const usuarioRepository = require('../repositories/usuarioRepository');
+const Usuario = require('../models/Usuario');
 
 async function cadastrar(req, res) {
   try {
@@ -7,7 +7,7 @@ async function cadastrar(req, res) {
 
     const senhaCriptografada = await bcrypt.hash(senha, 10);
 
-    const usuario = await usuarioRepository.criar({
+    const usuario = await Usuario.create({
       nome,
       email,
       senha: senhaCriptografada,
