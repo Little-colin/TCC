@@ -19,45 +19,36 @@ if (pegarToken()) {
     // Pega o valor digitado no campo com id="senha".
     const senha = document.getElementById('senha').value;
   
-    // Tenta executar o bloco abaixo; se algo der errado, vai para o catch.
+    let resposta;
     try {
-      // Envia um pedido ao servidor, na rota /login, e ESPERA (await) a resposta.
-      const resposta = await fetch('/login', {
-  
-        // Tipo do pedido: POST, usado para enviar dados.
+      resposta = await fetch('/login', {
         method: 'POST',
-  
-        // Avisa ao servidor que o conteúdo enviado está em formato JSON.
         headers: { 'Content-Type': 'application/json' },
-  
-        // Transforma { email, senha } em texto JSON e coloca no corpo do pedido.
         body: JSON.stringify({ email, senha }),
       });
-  
-      // Converte a resposta do servidor (texto JSON) em objeto JavaScript e espera terminar.
-      const dados = await resposta.json();
-  
-      // Se o servidor respondeu com sucesso (status entre 200 e 299)...
-      if (resposta.ok) {
-  
-        // ...guarda o token recebido no localStorage do navegador...
-        localStorage.setItem('token', dados.token);
-  
-        // ...e redireciona o usuário para a página do painel.
-        window.location.href = 'criar.html';
-  
-      // Se o servidor respondeu com erro (ex.: senha incorreta)...
-      } else {
-  
-        // ...mostra em vermelho a mensagem de erro enviada pelo servidor.
-        mostrarMensagem(dados.mensagem, 'erro');
-      }
-  
-    // Se aconteceu uma falha no caminho (ex.: servidor desligado), cai aqui.
     } catch (erro) {
-  
-      // Mostra um aviso de erro de conexão em vermelho.
       mostrarMensagem('Não foi possível conectar ao servidor.', 'erro');
+      return;
+    }
+
+    let dados;
+    try {
+      dados = await resposta.json();
+    } catch (erro) {
+      const mensagem = resposta.ok
+        ? 'O servidor retornou uma resposta inválida.'
+        : `O servidor respondeu com erro (HTTP ${resposta.status}).`;
+      mostrarMensagem(mensagem, 'erro');
+      return;
+    }
+
+    if (resposta.ok && dados.token) {
+      localStorage.setItem('token', dados.token);
+      window.location.href = 'criar.html';
+    } else if (resposta.ok) {
+      mostrarMensagem('O servidor não retornou o token de acesso.', 'erro');
+    } else {
+      mostrarMensagem(dados.mensagem || `Não foi possível fazer login (HTTP ${resposta.status}).`, 'erro');
     }
 
   });  
