@@ -7,6 +7,16 @@ require('dotenv').config();
 const app = express();
 
 const PORT = process.env.PORT || 3000;
+let bancoPronto;
+
+function prepararBanco() {
+    if (!bancoPronto) {
+        bancoPronto = sequelize.authenticate().then(() => {
+            if (!process.env.VERCEL) return sequelize.sync();
+        });
+    }
+    return bancoPronto;
+}
 
 app.get('/', (req, res) => {
   res.send('Olá do Node.js na Vercel!');
@@ -14,6 +24,9 @@ app.get('/', (req, res) => {
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use((req, res, next) => {
+    prepararBanco().then(() => next()).catch(next);
+});
 
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -27,16 +40,16 @@ app.use(campeonatoRoutes);
 app.use(timeRoutes);
 app.use(jogadorRoutes);
 
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Conectado ao banco de dados');
-        return sequelize.sync();
-    })
-    .then(() => {
-        app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-    })
-    .catch(err => {
-        console.error('Erro ao iniciar o servidor ou sincronizar o banco:', err);
-        process.exitCode = 1;
-    });
+if (require.main === module) {
+    prepararBanco()
+        .then(() => {
+            console.log('Conectado ao banco de dados');
+            app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+        })
+        .catch(err => {
+            console.error('Erro ao iniciar o servidor ou sincronizar o banco:', err);
+            process.exitCode = 1;
+        });
+}
+
+module.exports = app;
