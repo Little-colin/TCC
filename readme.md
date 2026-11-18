@@ -1,3 +1,5 @@
+link do site online: https://tcc-puce-beta.vercel.app/
+
 # Rivals Arena
 
 Projeto web para organizar campeonatos e equipes de esports. Inclui páginas de hub, TV, ranking, campeonatos e uma área de rede social. O backend oferece cadastro e login de usuários, além de operações para campeonatos, equipes e jogadores.
