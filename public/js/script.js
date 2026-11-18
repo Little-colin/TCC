@@ -1,6 +1,7 @@
 // Layout compartilhado (header/footer) e telas dinâmicas das páginas.
 const pag = document.body.dataset.p;
 const L = [['index', 'Hub'], ['tv', 'TV'], ['ranking', 'Ranking'], ['campeonatos', 'Campeonato']];
+if (localStorage.getItem('token')) L.push(['rede-social', 'Rede social']);
 
 // Escapa texto antes de usar em innerHTML (evita XSS)
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

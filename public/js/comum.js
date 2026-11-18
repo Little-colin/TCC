@@ -14,6 +14,8 @@ function pegarToken() {
   // window.location.href permite acessar ou mudar o endereço (URL) da página no navegador.
     }
   }
+
+    if (document.body.dataset.p === 'rede-social') protegerPagina();
    
   // Mostra uma mensagem na tela: tipo 'sucesso' (verde) ou 'erro' (vermelho)
   function mostrarMensagem(texto, tipo) {

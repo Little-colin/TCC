@@ -39,17 +39,13 @@ if (!tokenCriacao) {
         <label>Nome da equipe<input name="nome_time" maxlength="100" required></label>
         <label>Tag<input name="tag_time" maxlength="10" required></label>
         <label>URL do logo<input name="logo" type="url" maxlength="255"></label>
-        <fieldset class="selecao-jogadores">
-          <legend>Selecione os jogadores cadastrados</legend>
-          <ul id="lista-jogadores" class="cadastro-lista"></ul>
-        </fieldset>
         <button class="btn" type="submit">Cadastrar equipe</button>
-      `,
+        <label>Selecione os jogadores:</label>
+        <ul id="lista-jogadores" class="cadastro-lista"></ul>`,
       dados: form => ({
         nome_time: form.get('nome_time').trim(),
         tag_time: form.get('tag_time').trim().toUpperCase(),
         logo: form.get('logo').trim() || null,
-        ids_jogadores: form.getAll('ids_jogadores').map(Number),
       }),
     },
     'Cadastro de jogadores': {
@@ -109,14 +105,6 @@ if (!tokenCriacao) {
         const item = document.createElement('li');
         const nome = document.createElement('span');
         nome.textContent = registro[config.nome];
-        if (registro.jogadores?.length) {
-          const nomesJogadores = document.createElement('small');
-          nomesJogadores.textContent = `Jogadores: ${registro.jogadores
-            .map(jogador => jogador.nome_jogador).join(', ')}`;
-          item.append(nome, nomesJogadores);
-        } else {
-          item.append(nome);
-        }
 
         const acoes = document.createElement('span');
         const excluir = document.createElement('button');
@@ -140,7 +128,7 @@ if (!tokenCriacao) {
         });
 
         acoes.append(excluir);
-        item.append(acoes);
+        item.append(nome, acoes);
         lista.append(item);
       }
     } catch (erro) {
@@ -155,49 +143,12 @@ if (!tokenCriacao) {
     });
 
     areaCriacao.replaceChildren();
-    const mensagem = document.createElement('p');
-    mensagem.className = 'cadastro-mensagem';
-    mensagem.setAttribute('role', 'status');
-    mensagem.setAttribute('aria-live', 'polite');
-    const lista = document.createElement('ul');
-    lista.className = 'cadastro-lista';
 
-    let formulario;
     if (config.formulario) {
-      formulario = document.createElement('form');
+      const formulario = document.createElement('form');
       formulario.className = 'cadastro-form';
       formulario.innerHTML = config.formulario;
       areaCriacao.append(formulario);
-      areaCriacao.append(mensagem, lista);
-
-      const listaJogadores = formulario.querySelector('#lista-jogadores');
-      if (listaJogadores) {
-        try {
-          const jogadores = await requisicao(config.jogadores);
-          if (jogadores.length === 0) {
-            const item = document.createElement('li');
-            item.textContent = 'Cadastre jogadores antes de montar uma equipe.';
-            listaJogadores.append(item);
-          } else {
-            for (const jogador of jogadores) {
-              const item = document.createElement('li');
-              const label = document.createElement('label');
-              const checkbox = document.createElement('input');
-              checkbox.type = 'checkbox';
-              checkbox.name = 'ids_jogadores';
-              checkbox.value = jogador.id_jogador;
-              label.append(checkbox, document.createTextNode(jogador.nome_jogador));
-              item.append(label);
-              listaJogadores.append(item);
-            }
-          }
-        } catch (erro) {
-          const item = document.createElement('li');
-          item.textContent = `Não foi possível carregar os jogadores: ${erro.message}`;
-          listaJogadores.append(item);
-          formulario.querySelector('button[type="submit"]').disabled = true;
-        }
-      }
 
       formulario.addEventListener('submit', async evento => {
         evento.preventDefault();
@@ -222,7 +173,13 @@ if (!tokenCriacao) {
       });
     }
 
-    if (!config.formulario) areaCriacao.append(mensagem, lista);
+    const mensagem = document.createElement('p');
+    mensagem.className = 'cadastro-mensagem';
+    mensagem.setAttribute('role', 'status');
+    mensagem.setAttribute('aria-live', 'polite');
+    const lista = document.createElement('ul');
+    lista.className = 'cadastro-lista';
+    areaCriacao.append(mensagem, lista);
 
     await carregarLista(config, lista, mensagem);
   }

@@ -152,16 +152,6 @@ h1,h2{font-family:var(--big);text-transform:uppercase;font-weight:400}
 
 .cadastro-form textarea{min-height:90px;resize:vertical}
 
-.selecao-jogadores{border:1px solid #777;border-radius:6px;padding:12px}
-
-.selecao-jogadores legend{padding:0 6px}
-
-.selecao-jogadores .cadastro-lista li{min-height:40px}
-
-.selecao-jogadores .cadastro-lista label{display:flex;align-items:center;gap:10px}
-
-.selecao-jogadores .cadastro-lista input{width:auto}
-
 .cadastro-form .btn{width:auto;padding:12px 24px;cursor:pointer}
 
 .cadastro-mensagem{min-height:24px;margin:12px 0;color:#ddd}
