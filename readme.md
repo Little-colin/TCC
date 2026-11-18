@@ -36,7 +36,7 @@ Projeto web para organizar campeonatos e equipes de esports. Inclui páginas de 
 
 5. Acesse `http://localhost:3000/index.html`.
 
-Atualmente, a rota `http://localhost:3000/` exibe uma mensagem de teste. As credenciais do `.env` não devem ser publicadas no repositório.
+As credenciais do `.env` não devem ser publicadas no repositório.
 
 ## API
 
@@ -46,4 +46,4 @@ Atualmente, a rota `http://localhost:3000/` exibe uma mensagem de teste. As cred
 
 ## Publicação na Vercel
 
-O arquivo `vercel.json` encaminha as requisições para o servidor em `src/app.js`. Configure as mesmas variáveis do `.env` nas configurações do projeto na Vercel e deixe o banco MySQL acessível pelo serviço. Na Vercel, as tabelas devem estar criadas previamente; o servidor não sincroniza o schema automaticamente.
+A Vercel detecta o servidor Express em `src/app.js` e publica os arquivos de `public/`. Configure as mesmas variáveis do `.env` nas configurações do projeto na Vercel e deixe o banco MySQL acessível pelo serviço. Na Vercel, as tabelas devem estar criadas previamente; o servidor não sincroniza o schema automaticamente.

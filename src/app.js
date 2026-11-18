@@ -19,7 +19,7 @@ function prepararBanco() {
 }
 
 app.get('/', (req, res) => {
-  res.send('Olá do Node.js na Vercel!');
+    res.redirect('/index.html');
 });
 
 app.use(express.json());
