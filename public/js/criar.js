@@ -46,6 +46,8 @@ if (!tokenCriacao) {
         nome_time: form.get('nome_time').trim(),
         tag_time: form.get('tag_time').trim().toUpperCase(),
         logo: form.get('logo').trim() || null,
+        // ids dos jogadores marcados na lista
+        jogadores: form.getAll('jogadores').map(Number),
       }),
     },
     'Cadastro de jogadores': {
@@ -106,6 +108,11 @@ if (!tokenCriacao) {
         const nome = document.createElement('span');
         nome.textContent = registro[config.nome];
 
+        // Equipes: mostra os jogadores ao lado do nome
+        if (Array.isArray(registro.jogadores) && registro.jogadores.length > 0) {
+          nome.textContent += ` — ${registro.jogadores.map(j => j.nome_jogador).join(', ')}`;
+        }
+
         const acoes = document.createElement('span');
         const excluir = document.createElement('button');
         excluir.type = 'button';
@@ -136,6 +143,39 @@ if (!tokenCriacao) {
     }
   }
 
+  // Lista os jogadores com uma caixinha de seleção em cada um
+  async function carregarJogadoresParaSelecao(lista, endpoint) {
+    if (!lista) return;
+    lista.replaceChildren();
+
+    try {
+      const jogadores = await requisicao(endpoint);
+
+      if (jogadores.length === 0) {
+        const vazio = document.createElement('li');
+        vazio.textContent = 'Nenhum jogador cadastrado. Cadastre na aba "Cadastro de jogadores".';
+        lista.append(vazio);
+        return;
+      }
+
+      for (const jogador of jogadores) {
+        const item = document.createElement('li');
+        const rotulo = document.createElement('label');
+        const caixa = document.createElement('input');
+        caixa.type = 'checkbox';
+        caixa.name = 'jogadores';
+        caixa.value = jogador.id_jogador;
+        rotulo.append(caixa, ` ${jogador.nome_jogador}`);
+        item.append(rotulo);
+        lista.append(item);
+      }
+    } catch (erro) {
+      const falha = document.createElement('li');
+      falha.textContent = erro.message;
+      lista.append(falha);
+    }
+  }
+
   async function abrirAba(nomeAba) {
     const config = abas[nomeAba];
     navegacaoCriacao.querySelectorAll('button').forEach(botao => {
@@ -149,6 +189,11 @@ if (!tokenCriacao) {
       formulario.className = 'cadastro-form';
       formulario.innerHTML = config.formulario;
       areaCriacao.append(formulario);
+
+      // Cadastro de equipes: carrega os jogadores para marcar
+      if (config.jogadores) {
+        carregarJogadoresParaSelecao(formulario.querySelector('#lista-jogadores'), config.jogadores);
+      }
 
       formulario.addEventListener('submit', async evento => {
         evento.preventDefault();
