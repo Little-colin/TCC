@@ -21,10 +21,9 @@ if (pegarToken()) {
   
     let resposta;
     try {
-      resposta = await fetch('/login', {
-        method: 'POST',
+      resposta = await fetch(`/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
+        method: 'GET',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha }),
       });
     } catch (erro) {
       mostrarMensagem('Não foi possível conectar ao servidor.', 'erro');
