@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const { UniqueConstraintError } = require('sequelize');
 const Usuario = require('../models/Usuario');
 
 async function cadastrar(req, res) {
@@ -19,9 +20,18 @@ async function cadastrar(req, res) {
       email: usuario.email,
     });
   } catch (erro) {
-    res.status(400).json({
-      mensagem: 'Erro ao cadastrar usuário',
-      erro: erro.message,
+    if (erro instanceof UniqueConstraintError) {
+      return res.status(409).json({
+        mensagem: 'Este email já está cadastrado. Faça login ou use outro email.',
+      });
+    }
+
+    console.error('Erro ao cadastrar usuário:', {
+      name: erro.name,
+      code: erro.original && erro.original.code,
+    });
+    return res.status(500).json({
+      mensagem: 'Não foi possível cadastrar o usuário. Tente novamente mais tarde.',
     });
   }
 }
