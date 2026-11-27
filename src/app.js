@@ -1,3 +1,4 @@
+
 const express = require('express');
 const sequelize = require('./config/database');
 const path = require('path');
@@ -6,28 +7,18 @@ require('dotenv').config();
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
-let bancoPronto;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-function prepararBanco() {
-    if (!bancoPronto) {
-        bancoPronto = sequelize.authenticate().then(() => {
-            if (!process.env.VERCEL) return sequelize.sync();
-        });
-    }
-    return bancoPronto;
-}
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/', (req, res) => {
-    res.redirect('/index.html');
+    res.sendFile(
+        path.join(__dirname, '..', 'public', 'index.html')
+    );
 });
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, '..', 'public')));
-app.use((req, res, next) => {
-    prepararBanco().then(() => next()).catch(next);
-});
-
+// Rotas
 const usuarioRoutes = require('./routes/usuarioRoutes');
 const authRoutes = require('./routes/authRoutes');
 const timeRoutes = require('./routes/timeRoutes');
@@ -40,16 +31,24 @@ app.use(campeonatoRoutes);
 app.use(timeRoutes);
 app.use(jogadorRoutes);
 
-if (require.main === module) {
-    prepararBanco()
-        .then(() => {
-            console.log('Conectado ao banco de dados');
-            app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-        })
-        .catch(err => {
-            console.error('Erro ao iniciar o servidor ou sincronizar o banco:', err);
-            process.exitCode = 1;
+const PORT = process.env.PORT || 3000;
+
+async function iniciarServidor() {
+    try {
+        await sequelize.authenticate();
+        console.log('Conectado ao banco de dados');
+
+        await sequelize.sync();
+
+        app.listen(PORT, '0.0.0.0', () => {
+            console.log(`Servidor rodando na porta ${PORT}`);
         });
+    } catch (error) {
+        console.error('Erro ao iniciar aplicação:', error);
+        process.exit(1);
+    }
 }
+
+iniciarServidor();
 
 module.exports = app;
