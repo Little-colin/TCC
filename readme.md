@@ -1,4 +1,4 @@
-link do site online: https://tcc-puce-beta.vercel.app/
+link do site online: https://rivals-arena-tcc.onrender.com/index.html
 
 # Rivals Arena
 
