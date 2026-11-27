@@ -22,7 +22,7 @@ if (pegarToken()) {
     let resposta;
     try {
       resposta = await fetch(`/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(senha)}`, {
-        method: 'GET',
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       });
     } catch (erro) {
