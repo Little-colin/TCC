@@ -11,8 +11,12 @@ const sequelize = new Sequelize(
         port: process.env.DB_PORT,
         dialect: 'mysql',
         dialectModule: mysql2,
+        // Bancos na nuvem (ex.: TiDB Cloud) exigem conexão segura (SSL).
+        // Liga o SSL só quando a variável DB_SSL=true estiver configurada.
+        dialectOptions: process.env.DB_SSL === 'true'
+            ? { ssl: { minVersion: 'TLSv1.2', rejectUnauthorized: true } }
+            : {},
     }
-    
 );
 
 module.exports = sequelize;
