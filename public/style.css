@@ -25,6 +25,8 @@ h1,h2{font-family:var(--big);text-transform:uppercase;font-weight:400}
 
 .nav .dir{margin-left:auto;display:flex;align-items:center;gap:22px}
 
+.nav .dir img{width:auto;height:48px;max-width:96px;object-fit:contain;flex:none}
+
 .btn{display:inline-block;background:var(--y);color:#000;font-family:var(--sub);border-radius:8px;padding:10px 24px;border:0;cursor:pointer;font-size:15px;text-transform:uppercase}
 
 .foot{background:var(--card);height:110px;display:flex;align-items:center;padding:0 3%;font-family:var(--sub);text-transform:uppercase}

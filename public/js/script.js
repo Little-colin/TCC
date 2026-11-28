@@ -8,7 +8,7 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 
 const nav = document.querySelector('header.nav');
 if (nav) {
-  nav.innerHTML = `<a class="logo" href="index.html">RIVALS ARENA</a>${L.map(([f, n]) => `<a href="${f}.html" class="${f === pag ? 'on' : ''}">${n}</a>`).join('')}<div class="dir"><span>🌐</span><a class="btn" href="login.html">Login</a></div>`;
+  nav.innerHTML = `<a class="logo" href="index.html">RIVALS ARENA</a>${L.map(([f, n]) => `<a href="${f}.html" class="${f === pag ? 'on' : ''}">${n}</a>`).join('')}<div class="dir"><span>🌐</span><a class="btn" href="login.html">Login</a><img src="img/rivals-arena-logo-trans.png" alt="logo"></div>`;
 }
 
 const foot = document.querySelector('footer.foot');
